@@ -1,22 +1,17 @@
 library(tidyverse)
 
-#' with_background
+#' Change the background color of a ggplot.
 #'
 #' Change the background color of a ggplot.
-#' @param plot The plot you want to change.
 #' @param fill The color you want to change it to. Default is black.
 #' @param color The color you want to change the background to. Default is NA.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
-#' with_background(p, "pink")
+#' p + with_background("pink")
 
-with_background <- function(plot, fill = "black", color = "NA") {
-  if(class(plot)[1] != "gg") {
-    stop("is `plot` a ggplot2 plot?")
-  }
-
-  plot + theme(plot.background = element_rect(fill = fill, colour = color),
+with_background <- function(fill = "black", color = "NA") {
+theme(plot.background = element_rect(fill = fill, colour = color),
                panel.background = element_rect(fill = fill, colour = color))
 
 }
