@@ -8,7 +8,5 @@ License: What license is it under?
 Encoding: UTF-8
 Imports:
     tidyverse
-Depends:
-    tidyverse
 LazyData: true
 RoxygenNote: 6.0.1
