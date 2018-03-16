@@ -2,13 +2,11 @@
 % Please edit documentation in R/plotting_funcs.R
 \name{with_background}
 \alias{with_background}
-\title{with_background}
+\title{Change the background color of a ggplot.}
 \usage{
-with_background(plot, fill = "black", color = "NA")
+with_background(fill = "black", color = "NA")
 }
 \arguments{
-\item{plot}{The plot you want to change.}
-
 \item{fill}{The color you want to change it to. Default is black.}
 
 \item{color}{The color you want to change the background to. Default is NA.}
@@ -18,5 +16,5 @@ Change the background color of a ggplot.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
-with_background(p, "pink")
+p + with_background("pink")
 }
