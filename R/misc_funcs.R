@@ -3,7 +3,6 @@
 #' Checks whether `x`, a vector, is of a specific type. Useful for figuring out whether something is a factor / numeric for plotting.
 #' @param x a vector
 #' @param type the type you want to ensure the vector is
-#' @keywords cats
 #' @export
 #' @examples
 #' check_args(c(1,3,4),"numeric")

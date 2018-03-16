@@ -17,4 +17,3 @@ Checks whether `x`, a vector, is of a specific type. Useful for figuring out whe
 \examples{
 check_args(c(1,3,4),"numeric")
 }
-\keyword{cats}

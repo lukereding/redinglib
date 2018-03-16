@@ -5,11 +5,7 @@ library(tidyverse)
 palette_OkabeIto <- function(n) {
   cols <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
 }
-scale_color_OkabeIto <- function(...) discrete_scale("colour", "carto", palette_OkabeIto, ...)
-scale_fill_OkabeIto <- function(...) discrete_scale("fill", "carto", palette_OkabeIto, ...)
 
-
-## discrete
 palette_carto <- function(n) {
   cols <- c("#5F4690", "#1D6996", "#38A6A5", "#0F8554", "#73AF48", "#EDAD08", "#E17C05", "#CC503E", "#94346E", "#6F4070", "#994E95", "#666666")
   cols <- cols[c(2, 3, 6, 7, 8, 9, 1, 4, 5, 10)]
@@ -19,8 +15,81 @@ palette_carto <- function(n) {
 
   cols[1:n]
 }
-scale_color_carto <- function(...) discrete_scale("colour", "carto", palette_carto, ...)
+
+palette_world <- function(n, random_order = FALSE) {
+  cols <- c("#e39d25", "#d16050", "#5cb3e7", "#4676b1", "#1E824C", "#4DAF7C", "#818b98", "#4c4c4c")
+  cols <- cols[c(2, 3, 8, 1, 4, 7, 6, 5)]
+  if (isTRUE(random_order)) {
+    cols <- sample(cols)
+  }
+  if (length(cols) < n) {
+    cols <- rep(cols, length.out = n)
+  }
+  cols[1:n]
+}
+
+#' OkabeIto color scale
+#'
+#' OkabeIto color scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) + geom_point()
+#' p + scale_color_OkabeIto()
+
+scale_color_OkabeIto <- function(...) discrete_scale("colour", "carto", palette_OkabeIto, ...)
+
+
+#' OkabeIto fill scale
+#'
+#' OkabeIto fill scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, fill = factor(cyl))) + geom_point(shape = 22)
+#' p + scale_fill_OkabeIto()
+scale_fill_OkabeIto <- function(...) discrete_scale("fill", "carto", palette_OkabeIto, ...)
+
+
+#' Carto fill scale
+#'
+#' Carto charts (https://carto.com/carto-colors/) fill scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, fill = factor(cyl))) + geom_point(shape = 22)
+#' p + scale_fill_carto()
 scale_fill_carto <- function(...) discrete_scale("fill", "carto", palette_carto, ...)
+
+#' Carto color scale
+#'
+#' Carto charts (https://carto.com/carto-colors/) color scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) + geom_point()
+#' p + scale_color_carto()
+scale_color_carto <- function(...) discrete_scale("colour", "carto", palette_carto, ...)
+
+#' World color scale
+#'
+#' 'World' color scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) + geom_point()
+#' p + scale_color_world()
+scale_color_world <- function(...) discrete_scale("colour", "world", palette_world, ...)
+
+#' World fill scale
+#'
+#' 'World' fill scale for ggplot graphs.
+#' @param ... Additional arguments passed to ggplot2::discrete_scale.
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt, fill = factor(cyl))) + geom_point(shape = 22)
+#' p + scale_fill_world()
+scale_fill_world <- function(...) discrete_scale("fill", "world", palette_world, ...)
 
 
 
@@ -219,19 +288,6 @@ palette_charted <- function(n, random_order = FALSE) {
 scale_color_charted <- function(...) discrete_scale("colour", "charted", palette_charted, ...)
 scale_fill_charted <- function(...) discrete_scale("fill", "charted", palette_charted, ...)
 
-palette_world <- function(n, random_order = FALSE) {
-  cols <- c("#e39d25", "#d16050", "#5cb3e7", "#4676b1", "#1E824C", "#4DAF7C", "#818b98", "#4c4c4c")
-  cols <- cols[c(2, 3, 8, 1, 4, 7, 6, 5)]
-  if (isTRUE(random_order)) {
-    cols <- sample(cols)
-  }
-  if (length(cols) < n) {
-    cols <- rep(cols, length.out = n)
-  }
-  cols[1:n]
-}
-scale_color_world <- function(...) discrete_scale("colour", "world", palette_world, ...)
-scale_fill_world <- function(...) discrete_scale("fill", "world", palette_world, ...)
 
 
 palette_alpine <- function(n, random_order = FALSE) {
