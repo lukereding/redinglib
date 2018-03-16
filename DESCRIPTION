@@ -6,7 +6,9 @@ Description: Contains functions useful for use with ggplot2, plus some statistic
 Depends: R (>= 3.4.3)
 License: What license is it under?
 Encoding: UTF-8
-Imports: 
+Imports:
     tidyverse
-LazyData: true
+Depends:
+    tidyverse
+LazyData: truel
 RoxygenNote: 6.0.1
