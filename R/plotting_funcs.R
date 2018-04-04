@@ -16,6 +16,43 @@ theme(plot.background = element_rect(fill = fill, colour = color),
 
 }
 
+#' Format a the p-value and r^2 value from a model to show in a plot.
+#'
+#' Format a the p-value and r^2 value from a model to show in a plot. Does not work with plot annotations.
+#' @param model A model object, e.g., created by stats::lm().
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' model <- lm(wt ~ mpg, data = mtcars)
+#' p + ggtitle("", subtitle = make_lm_subtitle(model))
+make_lm_subtitle <- function(model) {
+  stopifnot(class(model) == "lm")
+  
+  r_sq <- model %>% broom::glance(.) %>% dplyr::pull("r.squared") %>% round(3)
+  temp <- paste0("p = ", get_lm_p_value(model, 5))
+  
+  substitute(paste(r^2, " = ", y, "; ", x), list(x=temp, y = r_sq))
+}
+
+#' Get the p-value from a linear regression
+#'
+#' Get the p-value for the slope of the explanatory variable from a linear regresion.
+#' @param model A model object, e.g., created by stats::lm().
+#' @export
+#' @examples
+#' model <- lm(wt ~ mpg, data = mtcars)
+#' get_lm_p_value(model)
+#' get_lm_p_value(model, digits = 10)
+get_lm_p_value <- function(model, digits = 4) {
+  stopifnot(class(model) == "lm")
+  stopifnot(nrow(broom::tidy(model)) == 2)
+  
+  model %>%
+    broom::tidy(.) %>%
+    dplyr::pull(p.value) %>%
+    last %>%
+    round(digits)
+}
 
 
 #' Plot a histogram for every numeric variable in your dataset.
